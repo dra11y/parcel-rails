@@ -1,15 +1,15 @@
-const RELOAD_CHANNEL = 'Breakfast::LiveReloadChannel';
+const RELOAD_CHANNEL = 'Parcel::LiveReloadChannel'
 
 class LiveReloader {
   constructor(settings) {
-    this.settings = settings;
+    this.settings = settings
   }
 
   buildFreshUrl(url) {
-    const date = Math.round(Date.now() / 1000).toString();
-    url = url.replace(/(\&|\\?)version=\d*/, '');
+    const date = Math.round(Date.now() / 1000).toString()
+    url = url.replace(/(\&|\\?)version=\d*/, '')
 
-    return (`${url}${(url.indexOf('?') >= 0 ? '&' : '?')}version=${date}`);
+    return (`${url}${(url.indexOf('?') >= 0 ? '&' : '?')}version=${date}`)
   }
 
   cssReload(strategy) {
@@ -22,87 +22,87 @@ class LiveReloader {
         [].slice
           .call(reloadableLinkElements)
           .filter(link => link.href)
-          .forEach(link => link.href = this.buildFreshUrl(link.href));
+          .forEach(link => link.href = this.buildFreshUrl(link.href))
 
         // Repaint
-        const browser = navigator.userAgent.toLowerCase();
+        const browser = navigator.userAgent.toLowerCase()
 
         if (browser.indexOf('chrome') > -1) {
-          setTimeout(() => { document.body.offsetHeight; }, 25);
+          setTimeout(() => { document.body.offsetHeight }, 25)
         }
-        break;
+        break
       case 'page':
-        window.top.location.reload();
-        break;
+        window.top.location.reload()
+        break
       case 'off':
-        break;
+        break
     }
   }
 
   jsReload(strategy) {
     switch (strategy) {
       case 'page':
-        window.top.location.reload();
-        break;
+        window.top.location.reload()
+        break
       case 'off':
-        break;
+        break
     }
   }
 
   htmlReload(strategy) {
     switch (strategy) {
       case 'turbolinks':
-        this.reloadTurbolinks();
-        break;
+        this.reloadTurbolinks()
+        break
       case 'wiselinks':
-        this.reloadWiselinks();
-        break;
+        this.reloadWiselinks()
+        break
       case 'page':
-        window.top.location.reload();
-        break;
+        window.top.location.reload()
+        break
       case 'off':
-        break;
+        break
     }
   }
 
   rubyReload(strategy) {
     switch (strategy) {
       case 'turbolinks':
-        this.reloadTurbolinks();
-        break;
+        this.reloadTurbolinks()
+        break
       case 'wiselinks':
-        this.reloadWiselinks();
-        break;
+        this.reloadWiselinks()
+        break
       case 'page':
-        window.top.location.reload();
-        break;
+        window.top.location.reload()
+        break
       case 'off':
-        break;
+        break
     }
   }
 
   reloadTurbolinks() {
-    const location = window.top.location;
+    const location = window.top.location
 
     if (this.settings.turbolinksEnabled() && !this.onErrorPage()) {
-      Turbolinks.visit(location);
+      Turbolinks.visit(location)
     } else {
-      location.reload();
+      location.reload()
     }
   }
 
   reloadWiselinks() {
     if (this.settings.wiselinksEnabled() && !this.onErrorPage()) {
-      wiselinks.reload();
+      wiselinks.reload()
     } else {
-      window.top.location.reload();
+      window.top.location.reload()
     }
   }
   // If user is on an error page and they fix the error and re-render using
   // turbolinks than the CSS from the Rails error page will hang around. Will
   // initiate a full refresh to get rid of it.
   onErrorPage() {
-    return (document.title.indexOf('Exception caught') !== -1);
+    return (document.title.indexOf('Exception caught') !== -1)
   }
 
   init() {
@@ -113,17 +113,17 @@ class LiveReloader {
       slim: this.htmlReload.bind(this),
       haml: this.htmlReload.bind(this),
       rb: this.rubyReload.bind(this)
-    };
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
       this.settings.cable.subscriptions.create(RELOAD_CHANNEL, {
         received: (data) => {
-          const reloader = reloaders[data.extension];
-          reloader(this.settings.strategies[data.extension]);
+          const reloader = reloaders[data.extension]
+          reloader(this.settings.strategies[data.extension])
         }
-      });
-    });
+      })
+    })
   }
 }
 
-module.exports = LiveReloader;
+module.exports = LiveReloader

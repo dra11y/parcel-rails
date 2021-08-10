@@ -1,4 +1,4 @@
-module Breakfast
+module Parcel
   class LocalEnvironment
     def running_server?
       possible_servers = %w[

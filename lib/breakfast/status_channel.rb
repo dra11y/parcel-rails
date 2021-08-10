@@ -1,9 +1,9 @@
 require "rails"
 
-module Breakfast
+module Parcel
   class StatusChannel < ::ActionCable::Channel::Base
     def subscribed
-      stream_from "breakfast_status"
+      stream_from "parcel_status"
     end
   end
 end

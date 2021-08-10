@@ -1,9 +1,9 @@
 require "rails"
 
-module Breakfast
+module Parcel
   class LiveReloadChannel < ::ActionCable::Channel::Base
     def subscribed
-      stream_from "breakfast_live_reload"
+      stream_from "parcel_live_reload"
     end
   end
 end

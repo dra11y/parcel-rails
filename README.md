@@ -1,21 +1,25 @@
 <p align="center">
-  <img src="http://breakfast.devlocker.io/images/breakfast-illustration.png" width="400" />
+  <img alt="Parcel logo" src="https://parceljs.org/assets/parcel-og.png" height="200" style="vertical-align: middle" />
+  <img alt="Ruby on Rails logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Ruby_On_Rails_Logo.svg/1200px-Ruby_On_Rails_Logo.svg.png" height="75" style="vertical-align: middle" />
 </p>
 
-# Breakfast
+# Parcel on Rails
 
-[Breakfast](http://breakfast.devlocker.io/) integrates modern Javascript
-tooling into your Rails project. Powered by [Brunch.io](http://brunch.io).
+## NOTE: I just forked and started working on this gem (August 10, 2021) & will update when I get it working.
+
+[Parcel-Rails](https://github.com/dra11y/parcel-rails) integrates modern Javascript
+tooling into your Rails project. Powered by [Parcel](https://parceljs.org).
 
 Get support for ES6 syntax & modules, live reload for CSS, JS, & HTML, and Yarn
 support. Be up and running on the latest frontend framework in minutes.
 
-### Installation & Usage
+## Installation & Usage
 
-See the official docs at
-[http://breakfast.devlocker.io](http://breakfast.devlocker.io).
+View updates in the [CHANGELOG](https://github.com/dra11y/parcel-rails/blob/master/CHANGELOG.md)
 
-View updates in the [CHANGELOG](https://github.com/devlocker/breakfast/blob/master/CHANGELOG.md)
+## Forked [Breakfast](http://breakfast.devlocker.io) History
+
+### (as of August 10, 2021)
 
 ### Latest Patch `0.6.6`
 
@@ -23,13 +27,13 @@ View updates in the [CHANGELOG](https://github.com/devlocker/breakfast/blob/mast
 
 - Support Rails 6 by removing constraint on ActionCable
 
-  [@mattr](https://github.com/devlocker/breakfast/pull/32)
+  [@mattr](https://github.com/devlocker/parcel/pull/32)
 
 ### Latest Release `0.6.0`
 
 #### Fixed
 
-- Puma hanging in clustered mode. Breakfast would fail to cleanly exit on Puma
+- Puma hanging in clustered mode. Parcel would fail to cleanly exit on Puma
   exit, causing the server to hang indefinitely.
 - Bumped Rails version dependency, can be used with Rails 5.0 and greater.
   (Allows usage with Rails 5.1)
@@ -45,10 +49,10 @@ View updates in the [CHANGELOG](https://github.com/devlocker/breakfast/blob/mast
 
 #### Upgrading to `0.6.0` from `0.5.x`
 
-- Update gem with `bundle update breakfast`
-- Update the JS package with `yarn upgrade breakfast-rails`
-- If deploying with Capistrano, remove `require "breakfast/capistrano"` from
-  your `Capfile`. Remove any custom Breakfast settings from `config/deploy.rb`.
+- Update gem with `bundle update parcel`
+- Update the JS package with `yarn upgrade parcel-rails`
+- If deploying with Capistrano, remove `require "parcel/capistrano"` from
+  your `Capfile`. Remove any custom Parcel settings from `config/deploy.rb`.
   Ensure that you are using [Capistrano Rails](https://github.com/capistrano/rails)
   and have `require 'capistrano/rails'` or `require 'capistrano/rails/assets'`
   in your `Capfile`.
@@ -67,7 +71,13 @@ See list of changes between versions in the CHANGELOG
 ### Contributing
 
 Bug reports and pull requests are welcome on GitHub at
-https://github.com/devlocker/breakfast.
+https://github.com/dra11y/parcel-rails.
+
+### Thanks
+
+Special thanks to Patrick Koperwas & contributors for the original
+[Breakfast](http://breakfast.devlocker.io) gem that this
+gem was forked from.
 
 ### License
 

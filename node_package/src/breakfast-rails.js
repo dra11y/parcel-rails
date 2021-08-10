@@ -1,19 +1,19 @@
-const LiveReloader = require('./live-reload');
-const StatusBar = require('./status-bar');
-const Settings = require('./settings');
+const LiveReloader = require('./live-reload')
+const StatusBar = require('./status-bar')
+const Settings = require('./settings')
 
-const BreakfastRails = {
+const ParcelRails = {
   init(options = {}) {
-    window.Breakfast = (window.Breakfast || {});
+    window.Parcel = (window.Parcel || {})
 
-    const settings = new Settings(options);
-    const liveReloader = new LiveReloader(settings);
-    const statusBar = new StatusBar(settings);
+    const settings = new Settings(options)
+    const liveReloader = new LiveReloader(settings)
+    const statusBar = new StatusBar(settings)
 
-    liveReloader.init();
-    statusBar.init();
+    liveReloader.init()
+    statusBar.init()
   }
-};
+}
 
-module.exports = BreakfastRails;
+module.exports = ParcelRails
 

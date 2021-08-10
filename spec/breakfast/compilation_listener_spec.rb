@@ -1,17 +1,17 @@
 require "spec_helper"
 require "tmpdir"
 
-RSpec.describe Breakfast::CompilationListener do
+RSpec.describe Parcel::CompilationListener do
   let!(:asset_dir) { Dir.mktmpdir }
   let!(:source_code_dir) { Dir.mktmpdir }
 
   before do
-    allow(Breakfast::CompilationListener).to receive(:broadcast)
+    allow(Parcel::CompilationListener).to receive(:broadcast)
   end
 
   describe ".start" do
     it "will listen for changes to the asset output folder" do
-      Breakfast::CompilationListener.start(
+      Parcel::CompilationListener.start(
         asset_output_folder: asset_dir,
         source_code_folders: source_code_dir
       )
@@ -21,16 +21,16 @@ RSpec.describe Breakfast::CompilationListener do
 
         sleep(2)
 
-        expect(Breakfast::CompilationListener).
+        expect(Parcel::CompilationListener).
           to have_received(:broadcast).with(
-            Breakfast::RELOAD_CHANNEL,
+            Parcel::RELOAD_CHANNEL,
             { extension: extension }
           )
       end
     end
 
     it "will listen for changes to the source code folders" do
-      Breakfast::CompilationListener.start(
+      Parcel::CompilationListener.start(
         asset_output_folder: asset_dir,
         source_code_folders: source_code_dir
       )
@@ -40,14 +40,14 @@ RSpec.describe Breakfast::CompilationListener do
 
         sleep(2)
 
-        expect(Breakfast::CompilationListener).
+        expect(Parcel::CompilationListener).
           to have_received(:broadcast).with(
-            Breakfast::RELOAD_CHANNEL,
+            Parcel::RELOAD_CHANNEL,
             { extension: extension }
           )
 
-        expect(Breakfast::CompilationListener).
-          to have_received(:broadcast).with(Breakfast::STATUS_CHANNEL, {
+        expect(Parcel::CompilationListener).
+          to have_received(:broadcast).with(Parcel::STATUS_CHANNEL, {
             status: "success",
             message: "saved: foo.#{extension}",
             extension: extension

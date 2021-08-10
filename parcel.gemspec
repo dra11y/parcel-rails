@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "breakfast/version"
+require "parcel/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "breakfast"
-  spec.version       = Breakfast::VERSION
-  spec.authors       = ["Patrick Koperwas"]
-  spec.email         = ["patrick@devlocker.io"]
+  spec.name          = "parcel"
+  spec.version       = Parcel::VERSION
+  spec.authors       = ["Tom Grushka"]
+  spec.email         = ["tom@dra11y.com"]
 
-  spec.summary       = %q{Integrates Brunch into Rails}
-  spec.description   = %q{Replace the asset pipeline with Brunch. Get CSS, JS and HTML live-reloading out of the box. Full ES6 support with require.}
-  spec.homepage      = "https://github.com/devlocker/breakfast"
+  spec.summary       = %q{Integrates Parcel into Rails}
+  spec.description   = %q{Replace the asset pipeline with Parcel. Get CSS, JS and HTML live-reloading out of the box. Full ES6 support with require.}
+  spec.homepage      = "https://github.com/dra11y/parcel"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }

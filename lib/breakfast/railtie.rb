@@ -2,45 +2,45 @@ require "rails"
 require "fileutils"
 require "listen"
 
-module Breakfast
+module Parcel
   class Railtie < ::Rails::Railtie
-    config.breakfast = ActiveSupport::OrderedOptions.new
+    config.parcel = ActiveSupport::OrderedOptions.new
 
     config.before_configuration do |app|
-      config.breakfast.html_reload_strategy = :turbolinks
-      config.breakfast.js_reload_strategy = :page
-      config.breakfast.css_reload_strategy = :hot
-      config.breakfast.ruby_reload_strategy = :off
+      config.parcel.html_reload_strategy = :turbolinks
+      config.parcel.js_reload_strategy = :page
+      config.parcel.css_reload_strategy = :hot
+      config.parcel.ruby_reload_strategy = :off
 
-      config.breakfast.asset_output_folder = ::Rails.root.join("public", "assets")
-      config.breakfast.source_code_folders = [::Rails.root.join("app")]
-      config.breakfast.environments = %w(development)
-      config.breakfast.status_bar_location = :bottom
-      config.breakfast.digest = !(::Rails.env.development? || ::Rails.env.test?)
+      config.parcel.asset_output_folder = ::Rails.root.join("public", "assets")
+      config.parcel.source_code_folders = [::Rails.root.join("app")]
+      config.parcel.environments = %w(development)
+      config.parcel.status_bar_location = :bottom
+      config.parcel.digest = !(::Rails.env.development? || ::Rails.env.test?)
     end
 
-    initializer "breakfast.setup_view_helpers" do |app|
+    initializer "parcel.setup_view_helpers" do |app|
       ActiveSupport.on_load(:action_view) do
-        include ::Breakfast::Helper
+        include ::Parcel::Helper
       end
     end
 
     rake_tasks do
-      load "tasks/breakfast.rake"
+      load "tasks/parcel.rake"
     end
 
     config.after_initialize do |app|
-      if config.breakfast.digest
-        config.breakfast.manifest = Breakfast::Manifest.new(base_dir: config.breakfast.asset_output_folder)
+      if config.parcel.digest
+        config.parcel.manifest = Parcel::Manifest.new(base_dir: config.parcel.asset_output_folder)
       end
 
-      if config.breakfast.environments.include?(::Rails.env) && Breakfast::LocalEnvironment.new.running_server?
+      if config.parcel.environments.include?(::Rails.env) && Parcel::LocalEnvironment.new.running_server?
 
         # Ensure public/assets directory exists
         FileUtils.mkdir_p(::Rails.root.join("public", "assets"))
 
         # Start Brunch Process
-        @brunch = Breakfast::BrunchWatcher.new(log: ::Rails.logger)
+        @brunch = Parcel::BrunchWatcher.new(log: ::Rails.logger)
         Thread.start do
           @brunch.run
         end
@@ -50,9 +50,9 @@ module Breakfast
         end
 
         # Setup file listeners
-        Breakfast::CompilationListener.start(
-          asset_output_folder: config.breakfast.asset_output_folder,
-          source_code_folders: config.breakfast.source_code_folders
+        Parcel::CompilationListener.start(
+          asset_output_folder: config.parcel.asset_output_folder,
+          source_code_folders: config.parcel.source_code_folders
         )
       end
     end

@@ -1,4 +1,4 @@
-const LOCAL_STORAGE_KEY = 'breakfast-rails-settings';
+const LOCAL_STORAGE_KEY = 'parcel-rails-settings';
 const ActionCable = require('actioncable');
 
 class Settings {

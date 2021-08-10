@@ -1,6 +1,6 @@
 require "rails/generators"
 
-module Breakfast
+module Parcel
   module Generators
     class InstallGenerator < ::Rails::Generators::Base
       source_root File.expand_path("../templates", __FILE__)
@@ -20,7 +20,7 @@ module Breakfast
           puts <<-SUCCESS.strip_heredoc
 
             ---> BREAKFAST INSTALLED SUCCESSFULLY
-            ---> See https://github.com/devlocker/breakfast for documentation and examples.
+            ---> See https://github.com/devlocker/parcel for documentation and examples.
 
           SUCCESS
         else
@@ -28,7 +28,7 @@ module Breakfast
 
             ---> ERROR - MISSING NODE & YARN
 
-            ---> Node version >= #{NODE_VERSION} & yarn are required to run Breakfast.
+            ---> Node version >= #{NODE_VERSION} & yarn are required to run Parcel.
             ---> Please install them before attempting to continue.
             ---> https://nodejs.org
             ---> https://yarnpkg.com/docs/install/
@@ -64,7 +64,7 @@ module Breakfast
           actioncable
           babel
           babel-brunch
-          breakfast-rails
+          parcel-rails
           brunch
           clean-css-brunch
           jquery
@@ -98,7 +98,7 @@ module Breakfast
 
       def add_node_modules_to_gitignore
         ignore = <<-IGNORE.strip_heredoc
-          # Added by Breakfast Gem
+          # Added by Parcel Gem
           yarn-error.log
           npm-debug.log
           node_modules/*

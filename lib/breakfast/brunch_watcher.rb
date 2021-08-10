@@ -1,6 +1,6 @@
 require "pty"
 
-module Breakfast
+module Parcel
   class BrunchWatcher
     BRUNCH_COMMAND = "./node_modules/brunch/bin/brunch watch".freeze
 

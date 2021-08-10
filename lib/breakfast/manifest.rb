@@ -2,9 +2,9 @@ require "json"
 require "digest"
 require "fileutils"
 
-module Breakfast
+module Parcel
   class Manifest
-    MANIFEST_REGEX = /^\.breakfast-manifest-[0-9a-f]{32}.json$/
+    MANIFEST_REGEX = /^\.parcel-manifest-[0-9a-f]{32}.json$/
     SPROCKETS_MANIFEST_REGEX = /^\.sprockets-manifest-[0-9a-f]{32}.json$/
     FINGERPRINT_REGEX = /-[0-9a-f]{32}\./
 
@@ -100,7 +100,7 @@ module Breakfast
       if (manifest = Dir.entries("#{base_dir}").detect { |entry| entry =~ MANIFEST_REGEX })
         "#{base_dir}/#{manifest}"
       else
-        manifest = "#{base_dir}/.breakfast-manifest-#{SecureRandom.hex(16)}.json"
+        manifest = "#{base_dir}/.parcel-manifest-#{SecureRandom.hex(16)}.json"
         File.open(manifest, "w") { |manifest| manifest.write({}.to_json) }
         manifest
       end

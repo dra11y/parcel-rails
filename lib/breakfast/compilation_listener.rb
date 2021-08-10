@@ -1,4 +1,4 @@
-module Breakfast
+module Parcel
   class CompilationListener
     ASSET_EXTENSIONS = ["css", "js"].freeze
     SOURCE_CODE_EXTENSIONS = ["rb", "html", "haml", "slim"].freeze
@@ -10,7 +10,7 @@ module Breakfast
 
           ASSET_EXTENSIONS.each do |extension|
             if files.any? { |file| file.match(/\.#{extension}/) }
-              broadcast(Breakfast::RELOAD_CHANNEL, { extension: extension })
+              broadcast(Parcel::RELOAD_CHANNEL, { extension: extension })
             end
           end
         end
@@ -22,14 +22,14 @@ module Breakfast
           SOURCE_CODE_EXTENSIONS.each do |extension|
             matched = files.select { |file| file.match(/\.#{extension}/) }
             if matched.present?
-              broadcast(Breakfast::RELOAD_CHANNEL, { extension: extension })
+              broadcast(Parcel::RELOAD_CHANNEL, { extension: extension })
 
               file_names = matched
                 .map { |file| file.split("/").last }
                 .join(", ")
                 .truncate(60)
 
-              broadcast(Breakfast::STATUS_CHANNEL, {
+              broadcast(Parcel::STATUS_CHANNEL, {
                 status: "success",
                 message: "saved: #{file_names}",
                 extension: extension

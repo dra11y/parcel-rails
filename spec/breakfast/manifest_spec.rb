@@ -2,7 +2,7 @@ require "spec_helper"
 require "tmpdir"
 require "json"
 
-RSpec.describe Breakfast::Manifest do
+RSpec.describe Parcel::Manifest do
   before do
     allow_any_instance_of(Digest::MD5).to receive(:hexdigest).and_return("digest")
     allow(SecureRandom).to receive(:hex) { "digest" }
@@ -16,7 +16,7 @@ RSpec.describe Breakfast::Manifest do
     app_js = File.open("#{output_dir}/app.js", "w")
     image = File.open("#{output_dir}/images/test.jpeg", "w")
 
-    manifest = Breakfast::Manifest.new(base_dir: output_dir)
+    manifest = Parcel::Manifest.new(base_dir: output_dir)
     manifest.digest!
 
     expect(File).to exist("#{output_dir}/app.js")
@@ -25,7 +25,7 @@ RSpec.describe Breakfast::Manifest do
     expect(File).to exist("#{output_dir}/images/test.jpeg")
     expect(File).to exist("#{output_dir}/images/test-digest.jpeg")
 
-    expect(JSON.parse(File.read("#{output_dir}/.breakfast-manifest-digest.json"))).to eq({
+    expect(JSON.parse(File.read("#{output_dir}/.parcel-manifest-digest.json"))).to eq({
       "app.js" => "app-digest.js",
       "images/test.jpeg" => "images/test-digest.jpeg"
     })
@@ -34,7 +34,7 @@ RSpec.describe Breakfast::Manifest do
   it "will not fingerprint already fingerprinted assets" do
     File.open("#{output_dir}/app-523a40ea7f96cd5740980e61d62dbc77.js", "w")
 
-    manifest = Breakfast::Manifest.new(base_dir: output_dir)
+    manifest = Parcel::Manifest.new(base_dir: output_dir)
     manifest.digest!
 
     expect(File).to exist("#{output_dir}/app-523a40ea7f96cd5740980e61d62dbc77.js")
@@ -46,17 +46,17 @@ RSpec.describe Breakfast::Manifest do
     Dir.mkdir("#{output_dir}/#{matching_regex_folder_name}/")
     File.open("#{output_dir}/#{matching_regex_folder_name}/app.js", "w")
 
-    manifest = Breakfast::Manifest.new(base_dir: output_dir)
+    manifest = Parcel::Manifest.new(base_dir: output_dir)
     manifest.digest!
     expect(number_of_files(output_dir)).to eq(2)
   end
 
   it "will find an existing manifest" do
-    File.open("#{output_dir}/.breakfast-manifest-869269cdf1773ff0dec91bafb37310ea.json", "w") do |file|
+    File.open("#{output_dir}/.parcel-manifest-869269cdf1773ff0dec91bafb37310ea.json", "w") do |file|
       file.write({ "app.js" => "app-abc123.js" }.to_json)
     end
 
-    manifest = Breakfast::Manifest.new(base_dir: output_dir)
+    manifest = Parcel::Manifest.new(base_dir: output_dir)
 
     expect(manifest.asset("app.js")).to eq("app-abc123.js")
   end
@@ -67,7 +67,7 @@ RSpec.describe Breakfast::Manifest do
     app_js = File.open("#{output_dir}/app.js", "w")
     image = File.open("#{output_dir}/images/test.jpeg", "w")
 
-    manifest = Breakfast::Manifest.new(base_dir: output_dir)
+    manifest = Parcel::Manifest.new(base_dir: output_dir)
     manifest.digest!
 
     expect(manifest.asset("app.js")).to eq("app-digest.js")
@@ -83,7 +83,7 @@ RSpec.describe Breakfast::Manifest do
     File.open("#{output_dir}/images/test.jpeg", "w")
     File.open("#{output_dir}/images/outdated-523a40ea7f96cd5740980e61d62dbc77.jpeg", "w")
 
-    manifest = Breakfast::Manifest.new(base_dir: output_dir)
+    manifest = Parcel::Manifest.new(base_dir: output_dir)
     manifest.digest!
 
     expect { manifest.clean! }.to change { number_of_files(output_dir) }.by(-2)
@@ -115,7 +115,7 @@ RSpec.describe Breakfast::Manifest do
       }.to_json)
     end
 
-    manifest = Breakfast::Manifest.new(base_dir: output_dir)
+    manifest = Parcel::Manifest.new(base_dir: output_dir)
     manifest.digest!
 
     expect { manifest.clean! }.to change { number_of_files(output_dir) }.by(-2)
