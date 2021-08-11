@@ -14,9 +14,9 @@ RSpec.describe "Installing the Gem" do
 
       %x{cd #{rails_dir} && bundle install}
       %x{cd #{rails_dir} && bundle exec rails generate parcel:install}
-      %x{cd #{rails_dir} && node_modules/brunch/bin/brunch build}
+      %x{cd #{rails_dir} && node_modules/parcel/bin/parcel build}
 
-      expect(File).to exist("#{rails_dir}/brunch-config.js")
+      expect(File).to exist("#{rails_dir}/parcel-config.js")
       expect(File).to exist("#{rails_dir}/package.json")
       expect(File).to exist("#{rails_dir}/app/frontend/js/app.js")
       expect(File).to exist("#{rails_dir}/app/frontend/css/app.scss")

@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in breakfast.gemspec
+# Specify your gem's dependencies in parcel.gemspec
 gemspec

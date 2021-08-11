@@ -12,11 +12,20 @@ module Parcel
       config.parcel.css_reload_strategy = :hot
       config.parcel.ruby_reload_strategy = :off
 
-      config.parcel.asset_output_folder = ::Rails.root.join("public", "assets")
-      config.parcel.source_code_folders = [::Rails.root.join("app")]
+      config.parcel.asset_output_folder = ::Rails.root.join('public/assets')
+      config.parcel.source_code_folders = [::Rails.root.join('app')]
       config.parcel.environments = %w(development)
       config.parcel.status_bar_location = :bottom
       config.parcel.digest = !(::Rails.env.development? || ::Rails.env.test?)
+
+      config.parcel.version = 1 # TODO: get working with parcel v2, after parcel 2 works with Vue 2!
+      config.parcel.entrypoint_folders = %w[app/packs/entrypoints app/javascript/packs]
+      # parcel@1.12.3:
+      config.parcel.bin_path = './node_modules/parcel/bin/cli.js'
+
+      # parcel@1 minify is broken; we will use our own
+      # and pass --no-minify to parcel CLI:
+      config.parcel.replace_minify = true
     end
 
     initializer "parcel.setup_view_helpers" do |app|
@@ -39,14 +48,14 @@ module Parcel
         # Ensure public/assets directory exists
         FileUtils.mkdir_p(::Rails.root.join("public", "assets"))
 
-        # Start Brunch Process
-        @brunch = Parcel::BrunchWatcher.new(log: ::Rails.logger)
+        # Start Parcel Process
+        @parcel = Parcel::ParcelWatcher.new(log: ::Rails.logger, config: config)
         Thread.start do
-          @brunch.run
+          @parcel.run
         end
 
         at_exit do
-          @brunch.terminate
+          @parcel.terminate
         end
 
         # Setup file listeners

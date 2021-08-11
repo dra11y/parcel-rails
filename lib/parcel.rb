@@ -1,6 +1,6 @@
 require "parcel/version"
 
-require "parcel/brunch_watcher"
+require "parcel/parcel_watcher"
 require "parcel/compilation_listener"
 require "parcel/live_reload_channel"
 require "parcel/manifest"

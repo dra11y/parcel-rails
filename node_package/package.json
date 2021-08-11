@@ -1,13 +1,13 @@
 {
-  "name": "breakfast-rails",
+  "name": "parcel-rails",
   "version": "0.6.5",
-  "description": "Assets for the Breakfast Gem",
-  "main": "./lib/breakfast-rails.js",
+  "description": "Assets for the Parcel-Rails Gem",
+  "main": "./lib/parcel-rails.js",
   "scripts": {
     "test": "eslint index.js src",
     "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib"
   },
-  "author": "Patrick Koperwas",
+  "author": "Tom Grushka",
   "license": "MIT",
   "dependencies": {
     "actioncable": "^5.0.0"
@@ -19,6 +19,6 @@
     "eslint": "^2.4.0"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": ["env"]
   }
 }

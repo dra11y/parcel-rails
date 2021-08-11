@@ -8,7 +8,7 @@ module Parcel
 
       def install
         if node_prerequisites_installed?
-          create_brunch_config
+          create_parcel_config
           create_package_json if using_rails_5_dot_0?
           install_required_packages
           create_directory_structure
@@ -19,7 +19,7 @@ module Parcel
 
           puts <<-SUCCESS.strip_heredoc
 
-            ---> BREAKFAST INSTALLED SUCCESSFULLY
+            ---> PARCEL-RAILS INSTALLED SUCCESSFULLY
             ---> See https://github.com/devlocker/parcel for documentation and examples.
 
           SUCCESS
@@ -51,8 +51,8 @@ module Parcel
         Gem::Version.new(`node -v`.tr("v", ""))
       end
 
-      def create_brunch_config
-        copy_file "brunch-config.js", "brunch-config.js"
+      def create_parcel_config
+        copy_file "parcel-config.js", "parcel-config.js"
       end
 
       def create_package_json
@@ -63,15 +63,15 @@ module Parcel
         packages = %w(
           actioncable
           babel
-          babel-brunch
+          babel-parcel
           parcel-rails
-          brunch
-          clean-css-brunch
+          parcel
+          clean-css-parcel
           jquery
           jquery-ujs
-          sass-brunch
+          sass-parcel
           turbolinks
-          uglify-js-brunch
+          uglify-js-parcel
         )
         run "yarn add #{packages.join(' ')}"
       end
